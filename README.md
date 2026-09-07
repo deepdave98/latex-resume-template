@@ -1,26 +1,35 @@
-# LaTeX Resume Template
+# LaTeX Software Engineering Resume Templates
 
-[![Build resume](https://github.com/deepdave98/latex-resume-template/actions/workflows/build.yml/badge.svg)](https://github.com/deepdave98/latex-resume-template/actions/workflows/build.yml)
+[![Build resumes](https://github.com/deepdave98/latex-resume-template/actions/workflows/build.yml/badge.svg)](https://github.com/deepdave98/latex-resume-template/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-29627e.svg)](LICENSE)
 
-This is the LaTeX template behind my resume. I built it to keep the content compact, readable, and easy to update without fighting the layout.
+I made two versions of this template for different stages of a software engineering career. They use the same clean layout, but the section order, length, and example bullets match your career stage.
 
-[![Rendered resume template](preview/resume-template.png)](output/pdf/resume-template.pdf)
+All software engineering companies, roles, metrics, and contact details are placeholders. Only my education and Teaching Assistant details are real.
 
-## What is included
+## Pick a template
 
-- A clean, single-column layout
-- Reusable commands for headings, roles, education, and skills
-- Optional one-line summaries for experience entries
-- Clickable, underlined links
-- A reproducible XeLaTeX build
-- A GitHub Actions build check
+| Template | Best for | Length | Section order |
+| --- | --- | ---: | --- |
+| [New Grad](templates/new-grad-resume.tex) | Students, interns, and recent graduates | 1 page | Education, certifications, experience, projects, skills |
+| [Experienced](templates/experienced-resume.tex) | Engineers showing broader scope and technical leadership | 2 pages | Experience, skills, education, certifications |
 
-The employment history, contact details, and skills in this repository are sample content. I kept my education section as a real-world formatting example.
+## Previews
 
-## Use this template
+### New Grad
 
-The easiest option is to click **Use this template** at the top of the repository. You can also clone it:
+[![New grad software engineer resume](preview/new-grad-resume.png)](output/pdf/new-grad-resume.pdf)
+
+### Experienced
+
+<p>
+  <a href="output/pdf/experienced-resume.pdf"><img src="preview/experienced-resume-page-1.png" width="49%" alt="Experienced software engineer resume, page 1"></a>
+  <a href="output/pdf/experienced-resume.pdf"><img src="preview/experienced-resume-page-2.png" width="49%" alt="Experienced software engineer resume, page 2"></a>
+</p>
+
+## Use it
+
+Click **Use this template** at the top of the repository, or clone it. On macOS or Linux:
 
 ```bash
 git clone https://github.com/deepdave98/latex-resume-template.git
@@ -28,14 +37,21 @@ cd latex-resume-template
 make
 ```
 
-The compiled document will be written to `build/resume.pdf`.
+Build one version with `make new-grad` or `make experienced`. Those targets write to `build/`. Run `make preview` to also refresh the published PDFs in `output/pdf/` and images in `preview/`.
 
-### Use it in Overleaf
+On Windows, or if you do not use `make`, run `latexmk` directly from the repository root:
 
-1. Download this repository as a ZIP.
-2. In Overleaf, choose **New Project**, then **Upload Project**.
-3. Open the project settings and set the compiler to **XeLaTeX**.
-4. Edit `resume.tex` and recompile.
+```bash
+latexmk -xelatex -outdir=build/new-grad templates/new-grad-resume.tex
+latexmk -xelatex -outdir=build/experienced templates/experienced-resume.tex
+```
+
+### Overleaf
+
+1. Upload `resume.cls` and the `.tex` file you want.
+2. Set that `.tex` file as the main document.
+3. Set the compiler to **XeLaTeX**.
+4. Replace the placeholder content and recompile.
 
 ## Requirements
 
@@ -54,38 +70,29 @@ sudo apt update
 sudo apt install latexmk texlive-xetex texlive-latex-extra
 ```
 
-To refresh the reviewed PDF and PNG in this repository, install Poppler or ImageMagick and run `make preview`.
+On Windows, install TeX Live or MiKTeX, make sure `latexmk` is on your `PATH`, and run the commands above in PowerShell.
 
-## Customize it
+To regenerate the PNG previews, install Poppler or ImageMagick. Colors, spacing, typography, and reusable commands live in `resume.cls`.
 
-Most changes belong in `resume.tex`. Replace the sample header, experience, and skills with your own information.
+## Edit the content
 
-The header uses three small commands, so contact items can be added or removed without changing the class:
-
-```latex
-\resumename{Your Name}
-\resumecontact{%
-  City, Region
-  \contactsep \resumelink{mailto:hello@example.com}{hello@example.com}
-  \contactsep \resumelink{https://github.com/your-handle}{GitHub}
-}
-```
-
-An experience or education entry uses this format:
+Entries use this format:
 
 ```latex
 \jobentry[Optional summary]{Role}{Organization}{Location}{Dates}
 ```
 
-Leave out the optional summary if you do not need it. Pass `{}` as the location to hide the location cleanly. Add bullet points inside a `jobduties` environment:
+Leave out the optional summary if you do not need it. Pass `{}` as the location to hide it. Add bullets inside `jobduties`:
 
 ```latex
 \begin{jobduties}
-  \item Describe what you did, how you did it, and the result.
+  \item Built [thing] with [method or technology], improving [result] by [amount].
 \end{jobduties}
 ```
 
-Colors, margins, typography, and spacing live in `resume.cls`. You can pass standard article options such as `a4paper` or `11pt` in `\documentclass[a4paper,11pt]{resume}`. LaTeX treats `&`, `%`, `$`, `#`, `_`, `{`, and `}` as special characters, so escape them with a backslash when you want to display them as text.
+For a new-grad resume, show what you built, tested, learned, or shipped with a team. For an experienced resume, show scope, tradeoffs, technical leadership, and the outcome. Use numbers when they are real; do not invent metrics just to make a bullet sound stronger.
+
+Escape LaTeX's special characters when they appear as text: `\&`, `\%`, `\$`, `\#`, and `\_`.
 
 ## Project structure
 
@@ -95,17 +102,26 @@ Colors, margins, typography, and spacing live in `resume.cls`. You can pass stan
 ├── .gitignore                    # Keeps local and LaTeX build files private
 ├── LICENSE                       # MIT license
 ├── output/pdf/
-│   └── resume-template.pdf       # Reviewed example PDF
+│   ├── experienced-resume.pdf
+│   └── new-grad-resume.pdf
 ├── preview/
-│   └── resume-template.png       # Preview shown above
-├── Makefile                      # Local build and preview commands
-├── resume.cls                    # Layout, colors, and reusable commands
-└── resume.tex                    # Resume content to edit
+│   ├── experienced-resume-page-1.png
+│   ├── experienced-resume-page-2.png
+│   └── new-grad-resume.png
+├── templates/
+│   ├── experienced-resume.tex
+│   └── new-grad-resume.tex
+├── Makefile
+└── resume.cls                    # Shared styling for both templates
 ```
 
-## Before publishing your version
+## Before publishing yours
 
-Search the source and rendered PDF for placeholder contact details, links, company names, and comments you do not want to share. LaTeX build files can contain source text and local paths, so this repository ignores them by default.
+Check the source and PDF for placeholder contact details, links, company names, and comments. LaTeX build files can contain source text and local paths, so they are ignored here.
+
+Every push compiles both templates on Linux and checks that the new-grad PDF stays at one page and the experienced PDF stays at two.
+
+If this saves you time, star the repo so more engineers can find it. Issues and pull requests are welcome.
 
 ## License
 
