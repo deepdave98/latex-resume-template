@@ -14,6 +14,13 @@ I based the example duties on patterns I saw while hiring junior and experienced
 | [New Grad](templates/new-grad-resume.tex) | Students, interns, and recent graduates | 1 page | Education, certifications, experience, projects, skills |
 | [Experienced](templates/experienced-resume.tex) | Engineers showing broader scope and technical leadership | 2 pages | Experience, skills, education, certifications |
 
+### Open in Overleaf
+
+[![Open the New Grad resume in Overleaf](https://img.shields.io/badge/New_Grad-Open_in_Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fgithub.com%2Fdeepdave98%2Flatex-resume-template%2Freleases%2Fdownload%2Fv1.0.0%2Fnew-grad-resume.zip&engine=xelatex&main_document=resume.tex)
+[![Open the Experienced resume in Overleaf](https://img.shields.io/badge/Experienced-Open_in_Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fgithub.com%2Fdeepdave98%2Flatex-resume-template%2Freleases%2Fdownload%2Fv1.0.0%2Fexperienced-resume.zip&engine=xelatex&main_document=resume.tex)
+
+Each button imports a standalone project and selects XeLaTeX.
+
 ## Previews
 
 ### New Grad
@@ -45,13 +52,6 @@ On Windows, or if you do not use `make`, run `latexmk` directly from the reposit
 latexmk -xelatex -outdir=build/new-grad templates/new-grad-resume.tex
 latexmk -xelatex -outdir=build/experienced templates/experienced-resume.tex
 ```
-
-### Overleaf
-
-1. Upload `resume.cls` and the `.tex` file you want.
-2. Set that `.tex` file as the main document.
-3. Set the compiler to **XeLaTeX**.
-4. Replace the placeholder content and recompile.
 
 ## Requirements
 
@@ -100,6 +100,7 @@ Escape LaTeX's special characters when they appear as text: `\&`, `\%`, `\$`, `\
 .
 ├── .github/workflows/build.yml   # Compiles every push and pull request
 ├── .gitignore                    # Keeps local and LaTeX build files private
+├── assets/social-preview.png     # GitHub social sharing card
 ├── LICENSE                       # MIT license
 ├── output/pdf/
 │   ├── experienced-resume.pdf
