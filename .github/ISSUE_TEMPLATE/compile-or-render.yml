@@ -1,12 +1,9 @@
-name: Compile or rendering problem
+name: Build or rendering problem
 description: Report a build failure or unexpected PDF output.
 title: "[Bug]: "
 labels:
   - bug
 body:
-  - type: markdown
-    attributes:
-      value: Thanks for helping improve the templates.
   - type: dropdown
     id: template
     attributes:
@@ -21,7 +18,7 @@ body:
     id: environment
     attributes:
       label: Environment
-      description: Include your operating system, TeX distribution, and editor or Overleaf.
+      description: Include your operating system, TeX distribution, and build method (command line, editor, or Overleaf).
       placeholder: macOS 15, MacTeX 2026, command line
     validations:
       required: true

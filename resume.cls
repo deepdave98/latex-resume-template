@@ -20,7 +20,7 @@
 \pagestyle{empty}
 \raggedbottom
 
-% Font: replace these files with an installed OpenType family and compile with XeLaTeX.
+% Font: replace the four OpenType filenames below; compile with XeLaTeX.
 \setmainfont{lmroman10-regular.otf}[
   BoldFont=lmroman10-bold.otf,
   ItalicFont=lmroman10-italic.otf,
@@ -38,14 +38,14 @@
   linkcolor=linkblue,
   pdftitle={LaTeX Resume Template},
   pdfauthor={},
-  pdfsubject={A compact, customizable resume template},
+  pdfsubject={Software engineering resume template},
   pdfkeywords={resume, curriculum vitae, LaTeX, template},
   pdfcreator={XeLaTeX},
   pdfproducer={}
 }
 \urlstyle{same}
 
-% Link styling: remove \uline to keep links clickable without underlining them.
+% Link styling: replace \uline{#2} with #2 to remove underlining.
 \newcommand{\resumelink}[2]{\href{#1}{\uline{#2}}}
 
 \setlength{\parindent}{0pt}
@@ -64,7 +64,7 @@
   \vspace{8pt}{\color{black!60}\hrule height 0.5pt}%
 }
 
-% Section styling: adjust the heading type, divider, and before/after spacing here.
+% Section styling: adjust heading typography, divider, and spacing below.
 \titleformat{\section}
   {\large\bfseries\color{namecolor}}
   {}{0pt}{}
@@ -75,8 +75,8 @@
 \newlength{\jobdutiesvspace}
 
 % \jobentry[Optional summary]{Title}{Company}{Location}{Dates}
-% Leave Location as {} to suppress it automatically.
-% Space before jobduties: 5pt with a summary and 3pt without one.
+% Pass {} for Location to omit it.
+% The gap before jobduties is 5pt with a summary and 3pt without.
 \newcommand{\jobentry}[5][]{%
   \ifblank{#1}{\setlength{\jobdutiesvspace}{3pt}}{\setlength{\jobdutiesvspace}{5pt}}%
   \Needspace{5\baselineskip}%
