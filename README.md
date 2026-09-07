@@ -3,7 +3,7 @@
 [![Build resumes](https://github.com/deepdave98/latex-resume-template/actions/workflows/build.yml/badge.svg)](https://github.com/deepdave98/latex-resume-template/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-29627e.svg)](LICENSE)
 
-I made this to help people put together a clear software engineering resume without spending hours fighting the layout. It includes a one-page version for students and new grads and a two-page version for experienced engineers. Both use the same style, with content and section order suited to each career stage.
+I made this to help people put together a clear software engineering resume without spending hours fighting with the layout. It includes a one-page version for students and new grads and a two-page version for experienced engineers. Both use the same style, with content and section order suited to each career stage.
 
 I based the example duties on patterns I saw while hiring junior and experienced engineers. They are prompts for writing about your own work; all software engineering companies, roles, metrics, and contact details are placeholders.
 
