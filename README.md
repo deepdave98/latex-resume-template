@@ -1,6 +1,6 @@
 # LaTeX Software Engineering Resume Templates
 
-[![Build resumes](https://github.com/deepdave98/latex-resume-template/actions/workflows/build.yml/badge.svg)](https://github.com/deepdave98/latex-resume-template/actions/workflows/build.yml)
+[![Build resumes](https://github.com/deepdave98/swe-resume-templates/actions/workflows/build.yml/badge.svg)](https://github.com/deepdave98/swe-resume-templates/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-29627e.svg)](LICENSE)
 
 I made this to help software engineers spend less time on layout and more time showing their work. Choose a one-page new-grad template or a two-page experienced template; both use the same style.
@@ -16,8 +16,8 @@ The example bullets reflect what I have looked for while hiring engineers: clear
 
 ### Open in Overleaf
 
-[![Open the New Grad resume in Overleaf](https://img.shields.io/badge/New_Grad-Open_in_Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fgithub.com%2Fdeepdave98%2Flatex-resume-template%2Freleases%2Fdownload%2Fv1.0.0%2Fnew-grad-resume.zip&engine=xelatex&main_document=resume.tex)
-[![Open the Experienced resume in Overleaf](https://img.shields.io/badge/Experienced-Open_in_Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fgithub.com%2Fdeepdave98%2Flatex-resume-template%2Freleases%2Fdownload%2Fv1.0.0%2Fexperienced-resume.zip&engine=xelatex&main_document=resume.tex)
+[![Open the New Grad resume in Overleaf](https://img.shields.io/badge/New_Grad-Open_in_Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fgithub.com%2Fdeepdave98%2Fswe-resume-templates%2Freleases%2Fdownload%2Fv1.0.0%2Fnew-grad-resume.zip&engine=xelatex&main_document=resume.tex)
+[![Open the Experienced resume in Overleaf](https://img.shields.io/badge/Experienced-Open_in_Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fgithub.com%2Fdeepdave98%2Fswe-resume-templates%2Freleases%2Fdownload%2Fv1.0.0%2Fexperienced-resume.zip&engine=xelatex&main_document=resume.tex)
 
 Both buttons open standalone XeLaTeX projects.
 
@@ -39,8 +39,8 @@ Both buttons open standalone XeLaTeX projects.
 Click **Use this template** at the top of the repository, or clone it. On macOS or Linux:
 
 ```bash
-git clone https://github.com/deepdave98/latex-resume-template.git
-cd latex-resume-template
+git clone https://github.com/deepdave98/swe-resume-templates.git
+cd swe-resume-templates
 make
 ```
 
@@ -116,7 +116,7 @@ Check the source for comments and placeholder contacts, links, employers, and me
 
 CI compiles both templates and enforces the one-page and two-page layouts.
 
-If this helped, star the repo. Contributions are welcome; read [CONTRIBUTING.md](CONTRIBUTING.md), and report vulnerabilities [privately](https://github.com/deepdave98/latex-resume-template/security/advisories/new).
+If this helped, star the repo. Contributions are welcome; read [CONTRIBUTING.md](CONTRIBUTING.md), and report vulnerabilities [privately](https://github.com/deepdave98/swe-resume-templates/security/advisories/new).
 
 ## License
 
