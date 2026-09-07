@@ -22,7 +22,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Compile both templates with XeLaTeX
+      - name: Compile and validate both templates
         uses: xu-cheng/latex-action@6549dc21effb2730855a1281407ecfcececc6c1b # v4
         with:
           docker_image: ghcr.io/xu-cheng/texlive-alpine@sha256:11383430b9a3e48c0b79339f34d8092f942f897d91ab3749d4899d06731fea7f

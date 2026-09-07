@@ -7,7 +7,7 @@ body:
   - type: textarea
     id: problem
     attributes:
-      label: What would this improve?
+      label: What problem would this solve?
       description: Explain the problem or use case before proposing a solution.
     validations:
       required: true
@@ -18,13 +18,13 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: template
+    id: area
     attributes:
-      label: Template
+      label: Area
       options:
-        - New Grad
-        - Experienced
-        - Both
+        - New Grad template
+        - Experienced template
+        - Both templates
         - Repository or documentation
     validations:
       required: true
