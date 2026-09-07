@@ -1,10 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{resume}[2026/09/06 Compact resume template]
 
+% Pass options such as a4paper or 11pt from \documentclass to article.
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
 \LoadClass{article}
 
+% Page margins: change the four geometry values below.
 \RequirePackage[left=0.5in,top=0.5in,right=0.5in,bottom=0.5in]{geometry}
 \RequirePackage{xcolor}
 \RequirePackage{fontspec}
@@ -17,15 +19,19 @@
 
 \pagestyle{empty}
 \raggedbottom
+
+% Font: replace these files with an installed OpenType family and compile with XeLaTeX.
 \setmainfont{lmroman10-regular.otf}[
   BoldFont=lmroman10-bold.otf,
   ItalicFont=lmroman10-italic.otf,
   BoldItalicFont=lmroman10-bolditalic.otf
 ]
 
+% Colors: namecolor controls resume text and headings; linkblue controls links.
 \definecolor{namecolor}{HTML}{293E49}
 \definecolor{linkblue}{HTML}{003B73}
 
+% Link colors and default PDF metadata; each resume can override its title and subject.
 \hypersetup{
   colorlinks=true,
   urlcolor=linkblue,
@@ -39,11 +45,13 @@
 }
 \urlstyle{same}
 
+% Link styling: remove \uline to keep links clickable without underlining them.
 \newcommand{\resumelink}[2]{\href{#1}{\uline{#2}}}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
 
+% Header styling: adjust the name size, contact size, and vertical gaps here.
 \newcommand{\resumename}[1]{%
   \noindent{\fontsize{30}{36}\selectfont\color{namecolor}\textbf{#1}}\par
   \vspace{6pt}%
@@ -56,6 +64,7 @@
   \vspace{8pt}{\color{black!60}\hrule height 0.5pt}%
 }
 
+% Section styling: adjust the heading type, divider, and before/after spacing here.
 \titleformat{\section}
   {\large\bfseries\color{namecolor}}
   {}{0pt}{}
@@ -67,6 +76,7 @@
 
 % \jobentry[Optional summary]{Title}{Company}{Location}{Dates}
 % Leave Location as {} to suppress it automatically.
+% Space before jobduties: 5pt with a summary and 3pt without one.
 \newcommand{\jobentry}[5][]{%
   \ifblank{#1}{\setlength{\jobdutiesvspace}{3pt}}{\setlength{\jobdutiesvspace}{5pt}}%
   \Needspace{5\baselineskip}%
@@ -84,6 +94,7 @@
   \par\nopagebreak%
 }
 
+% Entry bullets: adjust line spacing, marker, indentation, and list spacing here.
 \newenvironment{jobduties}{%
   \vspace{\jobdutiesvspace}%
   \color{namecolor}\normalfont%
@@ -101,6 +112,7 @@
   \vspace{4pt}%
 }
 
+% Skills bullets: change these values if skills should use a different list style.
 \newenvironment{skillitems}{%
   \vspace{8pt}%
   \color{namecolor}\normalfont%
