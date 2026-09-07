@@ -1,4 +1,4 @@
-name: Build resume
+name: Build resumes
 
 on:
   push:
@@ -15,15 +15,30 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Compile with XeLaTeX
+      - name: Compile both templates with XeLaTeX
         uses: xu-cheng/latex-action@6549dc21effb2730855a1281407ecfcececc6c1b # v4
         with:
-          root_file: resume.tex
+          root_file: |
+            templates/new-grad-resume.tex
+            templates/experienced-resume.tex
           latexmk_use_xelatex: true
           args: -file-line-error -halt-on-error -interaction=nonstopmode
+          extra_system_packages: poppler-utils
+          post_compile: |
+            test "$(pdfinfo new-grad-resume.pdf | awk '/^Pages:/ {print $2}')" = "1"
+            test "$(pdfinfo experienced-resume.pdf | awk '/^Pages:/ {print $2}')" = "2"
+            mkdir -p /tmp/resume-previews
+            pdftoppm -png -singlefile -f 1 -l 1 -r 72 new-grad-resume.pdf /tmp/resume-previews/new-grad
+            pdftoppm -png -singlefile -f 1 -l 1 -r 72 experienced-resume.pdf /tmp/resume-previews/experienced-page-1
+            pdftoppm -png -singlefile -f 2 -l 2 -r 72 experienced-resume.pdf /tmp/resume-previews/experienced-page-2
+            test -s /tmp/resume-previews/new-grad.png
+            test -s /tmp/resume-previews/experienced-page-1.png
+            test -s /tmp/resume-previews/experienced-page-2.png
 
-      - name: Upload PDF
+      - name: Upload PDFs
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: resume-template
-          path: resume.pdf
+          name: resume-templates
+          path: |
+            new-grad-resume.pdf
+            experienced-resume.pdf

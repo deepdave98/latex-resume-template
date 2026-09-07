@@ -3,6 +3,7 @@
 
 # LaTeX build output
 build/
+templates/*.pdf
 *.aux
 *.bbl
 *.bcf
