@@ -98,8 +98,14 @@ Escape LaTeX's special characters when they appear as text: `\&`, `\%`, `\$`, `\
 
 ```text
 .
-├── .github/workflows/build.yml   # Compiles every push and pull request
+├── .github/
+│   ├── ISSUE_TEMPLATE/            # Guided bug reports and improvement ideas
+│   ├── workflows/build.yml        # Compiles every push and pull request
+│   ├── CODEOWNERS                 # Default reviewer for repository changes
+│   ├── SECURITY.md                # Private vulnerability reporting policy
+│   └── dependabot.yml             # Monthly GitHub Actions updates
 ├── .gitignore                    # Keeps local and LaTeX build files private
+├── CONTRIBUTING.md               # How to propose and test changes
 ├── assets/social-preview.png     # GitHub social sharing card
 ├── LICENSE                       # MIT license
 ├── output/pdf/
@@ -122,7 +128,7 @@ Check the source and PDF for placeholder contact details, links, company names, 
 
 Every push compiles both templates on Linux and checks that the new-grad PDF stays at one page and the experienced PDF stays at two.
 
-If this saves you time, star the repo so more engineers can find it. Issues and pull requests are welcome.
+If this saves you time, star the repo so more engineers can find it. Issues and pull requests are welcome; read [CONTRIBUTING.md](CONTRIBUTING.md) before sending a change. Report security issues through the [private reporting form](https://github.com/deepdave98/latex-resume-template/security/advisories/new).
 
 ## License
 

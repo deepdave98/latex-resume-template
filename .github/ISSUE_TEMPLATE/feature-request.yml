@@ -1,0 +1,30 @@
+name: Improvement idea
+description: Suggest a focused improvement to the templates or documentation.
+title: "[Idea]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would this improve?
+      description: Explain the problem or use case before proposing a solution.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Suggested change
+    validations:
+      required: true
+  - type: dropdown
+    id: template
+    attributes:
+      label: Template
+      options:
+        - New Grad
+        - Experienced
+        - Both
+        - Repository or documentation
+    validations:
+      required: true
