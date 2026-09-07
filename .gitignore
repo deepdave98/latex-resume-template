@@ -1,0 +1,22 @@
+# Conductor workspace context
+.context/
+
+# LaTeX build output
+build/
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
+
+# Editor and operating-system files
+.DS_Store
+*.swp
+*~
