@@ -1,6 +1,7 @@
-.PHONY: all new-grad experienced preview clean
+.PHONY: all new-grad experienced preview test test-unit test-pdf-text clean
 
 LATEXMK := latexmk
+PYTHON := python3
 BUILD_DIR := build
 PREVIEW_DIR := preview
 OUTPUT_DIR := output/pdf
@@ -18,6 +19,15 @@ new-grad:
 experienced:
 	@mkdir -p "$(EXPERIENCED_BUILD_DIR)"
 	$(LATEXMK) -xelatex -interaction=nonstopmode -halt-on-error -file-line-error -outdir="$(EXPERIENCED_BUILD_DIR)" "$(EXPERIENCED_SOURCE)"
+
+test: test-unit test-pdf-text
+
+test-unit:
+	$(PYTHON) -m unittest discover -s tests -p 'test_*.py'
+
+test-pdf-text: all
+	$(PYTHON) tests/check_pdf_text.py --new-grad "$(NEW_GRAD_BUILD_DIR)/new-grad-resume.pdf" --experienced "$(EXPERIENCED_BUILD_DIR)/experienced-resume.pdf"
+	$(PYTHON) tests/check_pdf_text.py --new-grad "$(OUTPUT_DIR)/new-grad-resume.pdf" --experienced "$(OUTPUT_DIR)/experienced-resume.pdf"
 
 preview: all
 	@mkdir -p "$(PREVIEW_DIR)" "$(OUTPUT_DIR)"
