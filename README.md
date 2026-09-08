@@ -14,6 +14,8 @@ The example bullets reflect what I have looked for while hiring engineers: clear
 | [New Grad](templates/new-grad-resume.tex) | Students, interns, and recent graduates | 1 page | Education, certifications, experience, projects, skills |
 | [Experienced](templates/experienced-resume.tex) | Engineers showing broader scope and technical leadership | 2 pages | Experience, skills, education, certifications |
 
+Put your strongest relevant evidence first. Read [why section order changes with seniority](docs/section-order.md), including when to move projects up, drop certifications, or use a second page.
+
 ### Open in Overleaf
 
 [![Open the New Grad resume in Overleaf](https://img.shields.io/badge/New_Grad-Open_in_Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fgithub.com%2Fdeepdave98%2Fswe-resume-templates%2Freleases%2Fdownload%2Fv1.0.0%2Fnew-grad-resume.zip&engine=xelatex&main_document=resume.tex)
@@ -94,17 +96,42 @@ Write what you built, how you built it, and what changed. Experienced bullets sh
 
 For role-specific prompts, see the [backend](examples/engineering-bullets.md#backend-engineering), [frontend](examples/engineering-bullets.md#frontend-engineering), and [data engineering](examples/engineering-bullets.md#data-engineering) examples for early-career and experienced engineers.
 
+The [community examples](examples/community/README.md) collect reviewed before-and-after bullets. No submissions have been accepted yet. Add your own through the [submission form](https://github.com/deepdave98/swe-resume-templates/issues/new?template=resume-example.yml) or a pull request. Explain the edit and remove private details.
+
 Escape LaTeX's special characters when they appear as text: `\&`, `\%`, `\$`, `\#`, and `\_`.
+
+## Check PDF Text
+
+```bash
+make test
+```
+
+This builds both templates and checks the built and published PDFs against reviewed text snapshots. Missing words, changed reading order, unmapped characters, and wrong page counts fail. CI runs the same checks on standalone projects too.
+
+Tests need Python 3.9+ and Poppler's `pdftotext` on `PATH`. Install them with `brew install python poppler` on macOS, or `sudo apt install python3 poppler-utils` on Ubuntu/Debian. No pip packages are needed.
+
+This checks Poppler's layout-mode extraction, not an ATS score. After editing your own resume, inspect its text:
+
+```bash
+pdftotext -layout path/to/your-resume.pdf -
+```
+
+Read the [test guide](tests/README.md) for Windows commands, baseline updates, and what the check cannot catch.
 
 ## Project Structure
 
 ```text
 .
-├── .github/workflows/build.yml   # CI build and page-count checks
-├── examples/                     # Role-specific bullet prompts
+├── .github/ISSUE_TEMPLATE/       # Bugs, ideas, and example submissions
+├── .github/workflows/build.yml   # CI builds and PDF checks
+├── docs/section-order.md         # What to put first, and why
+├── examples/
+│   ├── engineering-bullets.md    # Role-specific prompts
+│   └── community/               # Submission template and reviewed index
 ├── output/pdf/                   # Published PDFs
 ├── preview/                      # Published PNG previews
 ├── templates/                    # Resume content
+├── tests/                        # Extraction checks and text baselines
 ├── CONTRIBUTING.md
 ├── Makefile
 └── resume.cls                    # Shared styling
@@ -114,9 +141,9 @@ Escape LaTeX's special characters when they appear as text: `\&`, `\%`, `\$`, `\
 
 Check the source for comments and placeholder contacts, links, employers, and metrics; then inspect the final PDF. LaTeX logs can contain source text and local paths, so review staged files before committing.
 
-CI compiles both templates and enforces the one-page and two-page layouts.
+CI checks compilation, page counts, and extracted text. Inspect every rendered page before sharing your resume.
 
-If this helped, star the repo. Contributions are welcome; read [CONTRIBUTING.md](CONTRIBUTING.md), and report vulnerabilities [privately](https://github.com/deepdave98/swe-resume-templates/security/advisories/new).
+Read [CONTRIBUTING.md](CONTRIBUTING.md) to submit a fix or example. Report vulnerabilities [privately](https://github.com/deepdave98/swe-resume-templates/security/advisories/new).
 
 ## License
 

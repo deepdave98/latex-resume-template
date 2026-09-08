@@ -17,6 +17,9 @@ templates/*.pdf
 *.toc
 *.xdv
 
+# Python test caches
+__pycache__/
+
 # Editor and operating-system files
 .DS_Store
 *.swp
