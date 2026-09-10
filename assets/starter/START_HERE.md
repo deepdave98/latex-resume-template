@@ -13,7 +13,7 @@ Using the no-internship starter? Keep course projects labeled as projects and de
 
 Use [New Project > Upload Project](https://www.overleaf.com/learn/latex/Kb/Uploading_a_project) and upload the ZIP. Set the compiler to **XeLaTeX** and the main document to `resume.tex`. Click **Recompile**.
 
-Open **Logs and output files** to see warnings. The checks run inside LaTeX; nothing else to install. They look for sample contacts, known example fields, and `[prompts]` in the template's header, entries, and lists. Literal square brackets may be flagged; unmarked examples and text inside custom commands may be missed.
+Open **View logs** beside **Recompile** to see warnings (**Logs and output files** in the older editor). The checks run inside LaTeX; nothing else to install. They look for sample contacts, known example fields, and `[prompts]` in the template's header, entries, and lists. Literal square brackets may be flagged; unmarked examples and text inside custom commands may be missed.
 
 ## Local
 

@@ -109,7 +109,7 @@ Escape LaTeX's special characters when they appear as text: `\&`, `\%`, `\$`, `\
 
 ## Placeholder Warnings
 
-Recompile and check **Logs and output files** in Overleaf. The class warns about sample contacts, known example fields, and remaining `[prompts]` in the header, entries, and bullet lists. Replace the flagged text or delete the unused entry, then recompile. Local builds show the same warnings.
+Recompile and open **View logs** in Overleaf (**Logs and output files** in the older editor). The class warns about sample contacts, known example fields, and remaining `[prompts]` in the header, entries, and bullet lists. Replace the flagged text or delete the unused entry, then recompile. Local builds show the same warnings.
 
 Warnings do not change the PDF or stop compilation. They are reminders, not a final review: unmarked examples and text hidden inside custom commands can pass; literal square brackets may be flagged. Check your education, links, dates, and every claim before sending.
 
