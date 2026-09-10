@@ -3,7 +3,7 @@
 [![Build resumes](https://github.com/deepdave98/swe-resume-templates/actions/workflows/build.yml/badge.svg)](https://github.com/deepdave98/swe-resume-templates/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-29627e.svg)](LICENSE)
 
-I made this to help software engineers spend less time on layout and more time showing their work. Start with projects if you have no internship, use the new-grad version if you have relevant work, or choose the two-page experienced version. All three use the same style.
+I made this to help software engineers spend less time on layout, design, fighting with latex and more time showing their work. Start with projects if you have no internship, use the new-grad version if you have relevant work, or choose the two-page experienced version. All three use the same style.
 
 The example bullets reflect what I have looked for while hiring engineers: clear ownership, real constraints, and proof the work held up. Every software engineering employer, role, metric, and contact detail is a placeholder.
 
