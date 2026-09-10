@@ -1,4 +1,4 @@
-\NeedsTeXFormat{LaTeX2e}
+\NeedsTeXFormat{LaTeX2e}[2020-10-01]
 \ProvidesClass{resume}[2026/09/06 Compact resume template]
 
 % Pass options such as a4paper or 11pt from \documentclass to article.
@@ -48,11 +48,60 @@
 % Link styling: replace \uline{#2} with #2 to remove underlining.
 \newcommand{\resumelink}[2]{\href{#1}{\uline{#2}}}
 
+% Automatic reminders for the template's sample values and [bracketed prompts].
+% Inspect only content passed to the resume commands below, without expanding
+% user macros or printing their values in the log. TeX has already removed comments.
+\ExplSyntaxOn
+\tl_new:N \l__resume_check_tl
+\bool_new:N \l__resume_placeholder_bool
+\cs_new_protected:Npn \__resume_match:n #1
+  {
+    \exp_args:NnV \regex_match:nnT {#1} \l__resume_check_tl
+      { \bool_set_true:N \l__resume_placeholder_bool }
+  }
+\cs_new_protected:Npn \resumecheckfield #1#2#3
+  {
+    \tl_set:Nx \l__resume_check_tl { \tl_to_str:n {#3} }
+    % This separator has no arguments: a following [Phone] is visible content.
+    \regex_replace_all:nnN { \\ contactsep \s+ } { } \l__resume_check_tl
+    % Ignore optional command arguments such as \item[label] or \\[3pt].
+    \regex_replace_all:nnN
+      { \\ ( [A-Za-z@]+ \s* \*? | \\ ) ( \s* \[ [^\[\]]* \] )+ }
+      { } \l__resume_check_tl
+    \bool_set_false:N \l__resume_placeholder_bool
+    \__resume_match:n { \[ [^\[\]]* \] }
+    \str_case:nn {#2}
+      {
+        {name}{ \__resume_match:n { \A \s* Your \s+ Name \s* \Z } }
+        {contact}{
+          \__resume_match:n
+            { hello@example\.com | your-handle | tel:\+15555555555 |
+              \+1 \s* \(555\) \s* 555-5555 | City,? \s+ Region }
+        }
+        {role}{ \__resume_match:n { \A \s* Issuing \s+ Organization \s* \Z } }
+        {organization}{
+          \__resume_match:n
+            { \A \s* ( Company \s+ [A-E] | Company \s+ Name |
+              Organization \s+ Name | Project \s+ Name | Certification \s+ Name |
+              Professional \s+ Certification | Additional \s+ Certification ) \s* \Z }
+        }
+        {location}{ \__resume_match:n { \A \s* City,? \s+ Region \s* \Z } }
+        {dates}{ \__resume_match:n { Month \s+ Year | \A \s* Year \s* \Z } }
+      }
+    \bool_if:NT \l__resume_placeholder_bool
+      {
+        \ClassWarning{resume}{Placeholder~reminder~in~#1.\MessageBreak
+          Replace~sample~values~and~bracketed~prompts~before~sharing}
+      }
+  }
+\ExplSyntaxOff
+
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
 
 % Header styling: adjust the name size, contact size, and vertical gaps here.
 \newcommand{\resumename}[1]{%
+  \resumecheckfield{resume name}{name}{#1}%
   \noindent{\fontsize{30}{36}\selectfont\color{namecolor}\textbf{#1}}\par
   \vspace{6pt}%
 }
@@ -60,6 +109,7 @@
 \newcommand{\contactsep}{\enspace\ensuremath{\diamond}\enspace}
 
 \newcommand{\resumecontact}[1]{%
+  \resumecheckfield{contact details}{contact}{#1}%
   {\small\color{namecolor}#1}\par
   \vspace{8pt}{\color{black!60}\hrule height 0.5pt}%
 }
@@ -73,11 +123,18 @@
 \titlespacing*{\section}{0pt}{9pt}{6pt}
 
 \newlength{\jobdutiesvspace}
+\newcounter{resumeentry}
 
 % \jobentry[Optional summary]{Title}{Company}{Location}{Dates}
 % Pass {} for Location to omit it.
 % The gap before jobduties is 5pt with a summary and 3pt without.
 \newcommand{\jobentry}[5][]{%
+  \stepcounter{resumeentry}%
+  \resumecheckfield{entry \arabic{resumeentry} summary}{summary}{#1}%
+  \resumecheckfield{entry \arabic{resumeentry} role}{role}{#2}%
+  \resumecheckfield{entry \arabic{resumeentry} organization}{organization}{#3}%
+  \resumecheckfield{entry \arabic{resumeentry} location}{location}{#4}%
+  \resumecheckfield{entry \arabic{resumeentry} dates}{dates}{#5}%
   \ifblank{#1}{\setlength{\jobdutiesvspace}{3pt}}{\setlength{\jobdutiesvspace}{5pt}}%
   \Needspace{5\baselineskip}%
   \vspace{8pt}%
@@ -95,7 +152,8 @@
 }
 
 % Entry bullets: adjust line spacing, marker, indentation, and list spacing here.
-\newenvironment{jobduties}{%
+\NewDocumentEnvironment{jobduties}{+b}{%
+  \resumecheckfield{entry \arabic{resumeentry} bullets}{bullets}{#1}%
   \vspace{\jobdutiesvspace}%
   \color{namecolor}\normalfont%
   \linespread{1.06}\selectfont%
@@ -107,13 +165,14 @@
     parsep=0pt,
     partopsep=0pt
   ]
-}{%
+  #1%
   \end{itemize}
   \vspace{4pt}%
-}
+}{}
 
 % Skills bullets: change these values if skills should use a different list style.
-\newenvironment{skillitems}{%
+\NewDocumentEnvironment{skillitems}{+b}{%
+  \resumecheckfield{skills bullets}{bullets}{#1}%
   \vspace{8pt}%
   \color{namecolor}\normalfont%
   \linespread{1.06}\selectfont%
@@ -125,7 +184,7 @@
     parsep=0pt,
     partopsep=0pt
   ]
-}{%
+  #1%
   \end{itemize}
   \vspace{4pt}%
-}
+}{}

@@ -22,9 +22,10 @@ body:
     attributes:
       label: Area
       options:
+        - No Internship template
         - New Grad template
         - Experienced template
-        - Both templates
+        - Multiple templates
         - Repository or documentation
     validations:
       required: true

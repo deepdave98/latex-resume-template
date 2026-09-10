@@ -4,13 +4,20 @@ from contextlib import redirect_stderr, redirect_stdout
 from io import StringIO
 from pathlib import Path
 import subprocess
+import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import call, patch
 
 import check_pdf_text as checker
 
 
 class TextChecks(unittest.TestCase):
+    def test_page_count_registry_covers_all_starters(self):
+        self.assertEqual(
+            checker.PAGE_COUNTS,
+            {"new-grad": 1, "no-internship": 1, "experienced": 2},
+        )
+
     def test_identical_text_passes(self):
         checker.compare_pages("resume", "Education\nBuilt API.\f", ["Education\nBuilt API."])
 
@@ -69,6 +76,15 @@ class TextChecks(unittest.TestCase):
     def test_multiple_pages_pass(self):
         checker.compare_pages("resume", "Experience\fSkills\f", ["Experience", "Skills"])
 
+    def test_no_internship_uses_its_one_page_baseline(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            expected = Path(temporary)
+            (expected / "no-internship-1.txt").write_text("Projects", encoding="utf-8")
+            with patch.object(checker, "EXPECTED_DIR", expected), patch.object(
+                checker, "extract_text", return_value="Projects\f"
+            ):
+                checker.check_pdf(Path("no-internship.pdf"), "no-internship")
+
 
 class CommandChecks(unittest.TestCase):
     def test_missing_pdf_has_actionable_error(self):
@@ -97,15 +113,38 @@ class CommandChecks(unittest.TestCase):
                 self.assertEqual(run.call_args.args[0][-2:], [str(pdf.resolve()), "-"])
                 self.assertFalse(run.call_args.kwargs.get("shell", False))
 
-    def test_cli_reports_both_files_and_returns_failure(self):
-        with patch.object(checker, "check_pdf", side_effect=[checker.CheckError("changed"), None]) as check:
+    def test_cli_reports_all_files_and_returns_failure(self):
+        with patch.object(
+            checker,
+            "check_pdf",
+            side_effect=[checker.CheckError("changed"), None, None],
+        ) as check:
             with redirect_stderr(StringIO()), redirect_stdout(StringIO()):
                 self.assertEqual(checker.main([]), 1)
-            self.assertEqual(check.call_count, 2)
+            self.assertEqual(check.call_count, 3)
 
     def test_cli_returns_success(self):
-        with patch.object(checker, "check_pdf"), redirect_stdout(StringIO()):
+        with patch.object(checker, "check_pdf") as check, redirect_stdout(StringIO()):
             self.assertEqual(checker.main([]), 0)
+        self.assertEqual(
+            check.call_args_list,
+            [
+                call(Path("build/new-grad/new-grad-resume.pdf"), "new-grad"),
+                call(Path("build/no-internship/no-internship-resume.pdf"), "no-internship"),
+                call(Path("build/experienced/experienced-resume.pdf"), "experienced"),
+            ],
+        )
+
+    def test_cli_accepts_no_internship_pdf_override(self):
+        with patch.object(checker, "check_pdf") as check, redirect_stdout(StringIO()):
+            self.assertEqual(
+                checker.main(["--no-internship", "custom folder/no-internship.pdf"]),
+                0,
+            )
+        self.assertEqual(
+            check.call_args_list[1],
+            call(Path("custom folder/no-internship.pdf"), "no-internship"),
+        )
 
 
 if __name__ == "__main__":

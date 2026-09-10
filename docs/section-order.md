@@ -2,7 +2,8 @@
 
 Put your strongest relevant evidence first. Education usually leads for students and new grads; relevant work moves ahead of it as your career develops. [CareerOneStop](https://cloudfront.careeronestop.org/JobSearch/Resumes/ResumeGuide/education.aspx) uses the same distinction.
 
-- **Student or new grad:** education, relevant experience, projects, skills. Put projects above unrelated jobs when they show more of your engineering ability.
+- **No internship yet:** education, projects, other experience, skills. Use the [project-first starter](../templates/no-internship-resume.tex). Keep course projects labeled as projects and separate your contribution from the team's. Other experience can be paid work, tutoring, volunteering, or a club responsibility; delete that section if it does not apply.
+- **New grad with relevant work:** education, relevant experience, projects, skills. Put projects above unrelated jobs when they show more of your engineering ability.
 - **Engineer with relevant work:** experience, skills, education. Give recent work the most space. Keep projects only when they add evidence your jobs do not cover.
 - **Changing fields:** lead with the experience or projects that match the target role. Keep entries within each section in reverse chronological order.
 

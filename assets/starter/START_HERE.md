@@ -1,0 +1,30 @@
+# Start Here
+
+Edit `resume.tex`. Styling lives in `resume.cls`.
+
+1. Replace the name, contacts, links, education, and credentials with your own.
+2. Replace each example and `[placeholder]` with work you can explain. Delete sections you do not need.
+3. Compile and check the log for placeholder warnings. Replace flagged text or delete unused entries, then recompile.
+4. Inspect every page, then download the PDF. Warnings do not catch every unfinished example.
+
+Using the no-internship starter? Keep course projects labeled as projects and describe your own part of team work. Delete **Other Experience** if you have no work, volunteering, or club responsibility to include.
+
+## Overleaf
+
+Use [New Project > Upload Project](https://www.overleaf.com/learn/latex/Kb/Uploading_a_project) and upload the ZIP. Set the compiler to **XeLaTeX** and the main document to `resume.tex`. Click **Recompile**.
+
+Open **View logs** beside **Recompile** to see warnings (**Logs and output files** in the older editor). The checks run inside LaTeX; nothing else to install. They look for sample contacts, known example fields, and `[prompts]` in the template's header, entries, and lists. Literal square brackets may be flagged; unmarked examples and text inside custom commands may be missed.
+
+## Local
+
+With XeLaTeX, `latexmk`, and LaTeX 2020-10-01 or newer installed, run this inside the extracted folder:
+
+```bash
+latexmk resume.tex
+```
+
+The included `latexmkrc` selects XeLaTeX. Your output is `resume.pdf`.
+
+For literal text, escape LaTeX characters: `\&`, `\%`, `\$`, `\#`, and `\_`.
+
+[Bullet examples](https://github.com/deepdave98/swe-resume-templates/blob/main/examples/engineering-bullets.md) · [Section order](https://github.com/deepdave98/swe-resume-templates/blob/main/docs/section-order.md)

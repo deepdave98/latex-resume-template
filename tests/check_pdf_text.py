@@ -11,7 +11,7 @@ import unicodedata
 
 
 EXPECTED_DIR = Path(__file__).resolve().parent / "expected"
-PAGE_COUNTS = {"new-grad": 1, "experienced": 2}
+PAGE_COUNTS = {"new-grad": 1, "no-internship": 1, "experienced": 2}
 
 
 class CheckError(Exception):
@@ -98,12 +98,20 @@ def main(argv=None):
         default=Path("build/new-grad/new-grad-resume.pdf"),
     )
     parser.add_argument(
+        "--no-internship", type=Path,
+        default=Path("build/no-internship/no-internship-resume.pdf"),
+    )
+    parser.add_argument(
         "--experienced", type=Path,
         default=Path("build/experienced/experienced-resume.pdf"),
     )
     args = parser.parse_args(argv)
     failures = 0
-    for template, pdf in (("new-grad", args.new_grad), ("experienced", args.experienced)):
+    for template, pdf in (
+        ("new-grad", args.new_grad),
+        ("no-internship", args.no_internship),
+        ("experienced", args.experienced),
+    ):
         try:
             check_pdf(pdf, template)
         except CheckError as error:
