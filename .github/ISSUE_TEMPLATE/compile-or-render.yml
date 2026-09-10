@@ -9,9 +9,10 @@ body:
     attributes:
       label: Template
       options:
+        - No Internship
         - New Grad
         - Experienced
-        - Both
+        - Multiple templates
     validations:
       required: true
   - type: input

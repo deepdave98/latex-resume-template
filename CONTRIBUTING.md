@@ -5,11 +5,12 @@ Issues and pull requests are welcome. Keep changes focused.
 ## Template and documentation changes
 
 - Keep shared layout and styling in `resume.cls`.
-- Keep the new-grad template at one page and the experienced template at two pages.
+- Keep the no-internship and new-grad templates at one page each, and the experienced template at two pages.
 - Keep examples shipped in the resume templates and maintainer-written guides fictional: use placeholder companies, roles, metrics, links, and contact details.
 - Run `make` with XeLaTeX.
-- Run `make test`; it checks PDF text extraction and the repository's unit tests. See the [test guide](tests/README.md) for dependencies and baseline updates.
 - Run `make preview` and review every page if the output changes.
+- Run `make downloads` after changing template content, styling, the license, or starter instructions.
+- Run `make test`; it checks PDF text, ZIP freshness, builds from the actual downloads, and placeholder warnings. See the [test guide](tests/README.md) for dependencies and baseline updates.
 - Run `git diff --check`.
 
 Explain why the change matters. Include before-and-after screenshots for layout changes.

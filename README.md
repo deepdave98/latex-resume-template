@@ -3,27 +3,33 @@
 [![Build resumes](https://github.com/deepdave98/swe-resume-templates/actions/workflows/build.yml/badge.svg)](https://github.com/deepdave98/swe-resume-templates/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-29627e.svg)](LICENSE)
 
-I made this to help software engineers spend less time on layout and more time showing their work. Choose a one-page new-grad template or a two-page experienced template; both use the same style.
+I made this to help software engineers spend less time on layout and more time showing their work. Start with projects if you have no internship, use the new-grad version if you have relevant work, or choose the two-page experienced version. All three use the same style.
 
 The example bullets reflect what I have looked for while hiring engineers: clear ownership, real constraints, and proof the work held up. Every software engineering employer, role, metric, and contact detail is a placeholder.
 
 ## Pick a Template
 
-| Template | Best for | Length | Section order |
-| --- | --- | ---: | --- |
-| [New Grad](templates/new-grad-resume.tex) | Students, interns, and recent graduates | 1 page | Education, certifications, experience, projects, skills |
-| [Experienced](templates/experienced-resume.tex) | Engineers showing broader scope and technical leadership | 2 pages | Experience, skills, education, certifications |
+Edit in Overleaf with no local setup, or download a standalone ZIP. Both paths use the current templates.
 
-Put your strongest relevant evidence first. Read [why section order changes with seniority](docs/section-order.md), including when to move projects up, drop certifications, or use a second page.
+| Template | Edit online | Download | Preview |
+| --- | --- | --- | --- |
+| No Internship (1 page) | [![Open the No Internship resume in Overleaf](https://img.shields.io/badge/No_Internship-Open_in_Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fraw.githubusercontent.com%2Fdeepdave98%2Fswe-resume-templates%2Fmain%2Fdownloads%2Fno-internship-resume.zip&engine=xelatex&main_document=resume.tex) | [Starter ZIP](https://raw.githubusercontent.com/deepdave98/swe-resume-templates/main/downloads/no-internship-resume.zip) | [PDF](output/pdf/no-internship-resume.pdf) |
+| New Grad (1 page) | [![Open the New Grad resume in Overleaf](https://img.shields.io/badge/New_Grad-Open_in_Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fraw.githubusercontent.com%2Fdeepdave98%2Fswe-resume-templates%2Fmain%2Fdownloads%2Fnew-grad-resume.zip&engine=xelatex&main_document=resume.tex) | [Starter ZIP](https://raw.githubusercontent.com/deepdave98/swe-resume-templates/main/downloads/new-grad-resume.zip) | [PDF](output/pdf/new-grad-resume.pdf) |
+| Experienced (2 pages) | [![Open the Experienced resume in Overleaf](https://img.shields.io/badge/Experienced-Open_in_Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fraw.githubusercontent.com%2Fdeepdave98%2Fswe-resume-templates%2Fmain%2Fdownloads%2Fexperienced-resume.zip&engine=xelatex&main_document=resume.tex) | [Starter ZIP](https://raw.githubusercontent.com/deepdave98/swe-resume-templates/main/downloads/experienced-resume.zip) | [PDF](output/pdf/experienced-resume.pdf) |
 
-### Open in Overleaf
+Open `resume.tex`. Replace the contact details, education, credentials, and example work with your own. Recompile, inspect every page, then download the PDF. The Overleaf buttons select XeLaTeX automatically.
 
-[![Open the New Grad resume in Overleaf](https://img.shields.io/badge/New_Grad-Open_in_Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fgithub.com%2Fdeepdave98%2Fswe-resume-templates%2Freleases%2Fdownload%2Fv1.0.0%2Fnew-grad-resume.zip&engine=xelatex&main_document=resume.tex)
-[![Open the Experienced resume in Overleaf](https://img.shields.io/badge/Experienced-Open_in_Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fgithub.com%2Fdeepdave98%2Fswe-resume-templates%2Freleases%2Fdownload%2Fv1.0.0%2Fexperienced-resume.zip&engine=xelatex&main_document=resume.tex)
+No internship yet? Start with education and projects. Keep course projects labeled as projects, name the part you built, and delete **Other Experience** if it does not apply. You do not need an internship or a certification to fill a section.
 
-Both buttons open standalone XeLaTeX projects.
+Each ZIP contains `resume.tex`, `resume.cls`, `latexmkrc`, `START_HERE.md`, and `LICENSE`. Upload it to Overleaf, or extract it and run `latexmk resume.tex` inside its folder with a local TeX installation. The included config selects XeLaTeX; no repository clone is needed.
+
+New grads usually lead with education; experienced engineers lead with relevant work. Read [why section order changes](docs/section-order.md), including when to move projects up, drop certifications, or use a second page.
 
 ## Previews
+
+### No Internship
+
+[![Project-first resume for students without a software engineering internship](preview/no-internship-resume.png)](output/pdf/no-internship-resume.pdf)
 
 ### New Grad
 
@@ -46,18 +52,19 @@ cd swe-resume-templates
 make
 ```
 
-`make` builds both templates to `build/`. Use `make new-grad`, `make experienced`, or `make preview` to build one template or refresh the published PDFs and PNGs.
+`make` builds all three templates to `build/`. Use `make no-internship`, `make new-grad`, or `make experienced` to build one. Run `make preview` to refresh the published PDFs and PNGs.
 
 On Windows, or without `make`, run `latexmk` from the repository root:
 
 ```bash
+latexmk -xelatex -outdir=build/no-internship templates/no-internship-resume.tex
 latexmk -xelatex -outdir=build/new-grad templates/new-grad-resume.tex
 latexmk -xelatex -outdir=build/experienced templates/experienced-resume.tex
 ```
 
-## Requirements
+## Local Requirements
 
-You need a TeX distribution with XeLaTeX and `latexmk`.
+You need a TeX distribution with XeLaTeX, `latexmk`, and LaTeX 2020-10-01 or newer.
 
 On macOS:
 
@@ -100,13 +107,19 @@ The [community examples](examples/community/README.md) collect reviewed before-a
 
 Escape LaTeX's special characters when they appear as text: `\&`, `\%`, `\$`, `\#`, and `\_`.
 
+## Placeholder Warnings
+
+Recompile and check **Logs and output files** in Overleaf. The class warns about sample contacts, known example fields, and remaining `[prompts]` in the header, entries, and bullet lists. Replace the flagged text or delete the unused entry, then recompile. Local builds show the same warnings.
+
+Warnings do not change the PDF or stop compilation. They are reminders, not a final review: unmarked examples and text hidden inside custom commands can pass; literal square brackets may be flagged. Check your education, links, dates, and every claim before sending.
+
 ## Check PDF Text
 
 ```bash
 make test
 ```
 
-This builds both templates and checks the built and published PDFs against reviewed text snapshots. Missing words, changed reading order, unmapped characters, and wrong page counts fail. CI runs the same checks on standalone projects too.
+This builds all three templates and checks the built and published PDFs against reviewed text snapshots. Missing words, changed reading order, unmapped characters, and wrong page counts fail. It also checks ZIP freshness, compiles the exact downloads, and tests placeholder warnings against unfinished and completed examples. CI runs the same checks.
 
 Tests need Python 3.9+ and Poppler's `pdftotext` on `PATH`. Install them with `brew install python poppler` on macOS, or `sudo apt install python3 poppler-utils` on Ubuntu/Debian. No pip packages are needed.
 
@@ -124,17 +137,20 @@ Read the [test guide](tests/README.md) for Windows commands, baseline updates, a
 .
 ├── .github/ISSUE_TEMPLATE/       # Bugs, ideas, and example submissions
 ├── .github/workflows/build.yml   # CI builds and PDF checks
+├── assets/starter/               # Instructions and compiler config for ZIPs
 ├── docs/section-order.md         # What to put first, and why
+├── downloads/                    # Current standalone starter ZIPs
 ├── examples/
 │   ├── engineering-bullets.md    # Role-specific prompts
 │   └── community/               # Submission template and reviewed index
 ├── output/pdf/                   # Published PDFs
 ├── preview/                      # Published PNG previews
+├── scripts/                      # Rebuild and check starter downloads
 ├── templates/                    # Resume content
-├── tests/                        # Extraction checks and text baselines
+├── tests/                        # PDF, download, and placeholder checks
 ├── CONTRIBUTING.md
 ├── Makefile
-└── resume.cls                    # Shared styling
+└── resume.cls                    # Shared styling and placeholder warnings
 ```
 
 ## Before Publishing Yours

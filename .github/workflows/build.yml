@@ -22,11 +22,12 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Compile and validate both templates
+      - name: Compile and validate templates
         uses: xu-cheng/latex-action@6549dc21effb2730855a1281407ecfcececc6c1b # v4
         with:
           docker_image: ghcr.io/xu-cheng/texlive-alpine@sha256:11383430b9a3e48c0b79339f34d8092f942f897d91ab3749d4899d06731fea7f
           root_file: |
+            templates/no-internship-resume.tex
             templates/new-grad-resume.tex
             templates/experienced-resume.tex
           latexmk_use_xelatex: true
@@ -34,35 +35,35 @@ jobs:
           extra_system_packages: poppler-utils python3
           post_compile: |
             python3 -m unittest discover -s tests -p 'test_*.py'
-            python3 tests/check_pdf_text.py --new-grad new-grad-resume.pdf --experienced experienced-resume.pdf
-            python3 tests/check_pdf_text.py --new-grad output/pdf/new-grad-resume.pdf --experienced output/pdf/experienced-resume.pdf
+            python3 scripts/package_templates.py --check
+            python3 tests/check_pdf_text.py --no-internship no-internship-resume.pdf --new-grad new-grad-resume.pdf --experienced experienced-resume.pdf
+            python3 tests/check_pdf_text.py --no-internship output/pdf/no-internship-resume.pdf --new-grad output/pdf/new-grad-resume.pdf --experienced output/pdf/experienced-resume.pdf
+            test "$(pdfinfo no-internship-resume.pdf | awk '/^Pages:/ {print $2}')" = "1"
             test "$(pdfinfo new-grad-resume.pdf | awk '/^Pages:/ {print $2}')" = "1"
             test "$(pdfinfo experienced-resume.pdf | awk '/^Pages:/ {print $2}')" = "2"
             mkdir -p /tmp/resume-previews
+            pdftoppm -png -singlefile -f 1 -l 1 -r 72 no-internship-resume.pdf /tmp/resume-previews/no-internship
             pdftoppm -png -singlefile -f 1 -l 1 -r 72 new-grad-resume.pdf /tmp/resume-previews/new-grad
             pdftoppm -png -singlefile -f 1 -l 1 -r 72 experienced-resume.pdf /tmp/resume-previews/experienced-page-1
             pdftoppm -png -singlefile -f 2 -l 2 -r 72 experienced-resume.pdf /tmp/resume-previews/experienced-page-2
             test -s /tmp/resume-previews/new-grad.png
+            test -s /tmp/resume-previews/no-internship.png
             test -s /tmp/resume-previews/experienced-page-1.png
             test -s /tmp/resume-previews/experienced-page-2.png
 
-            mkdir -p /tmp/new-grad-project /tmp/experienced-project
-            cp resume.cls /tmp/new-grad-project/
-            cp resume.cls /tmp/experienced-project/
-            cp templates/new-grad-resume.tex /tmp/new-grad-project/resume.tex
-            cp templates/experienced-resume.tex /tmp/experienced-project/resume.tex
-            latexmk -xelatex -file-line-error -halt-on-error -interaction=nonstopmode -cd /tmp/new-grad-project/resume.tex
-            latexmk -xelatex -file-line-error -halt-on-error -interaction=nonstopmode -cd /tmp/experienced-project/resume.tex
-            test "$(pdfinfo /tmp/new-grad-project/resume.pdf | awk '/^Pages:/ {print $2}')" = "1"
-            test "$(pdfinfo /tmp/experienced-project/resume.pdf | awk '/^Pages:/ {print $2}')" = "2"
-            python3 tests/check_pdf_text.py --new-grad /tmp/new-grad-project/resume.pdf --experienced /tmp/experienced-project/resume.pdf
+            python3 tests/check_starter_builds.py
+            python3 tests/check_placeholders.py
 
-      - name: Upload PDFs
+      - name: Upload PDFs and starter ZIPs
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: resume-templates
           if-no-files-found: error
           retention-days: 7
           path: |
+            no-internship-resume.pdf
             new-grad-resume.pdf
             experienced-resume.pdf
+            downloads/new-grad-resume.zip
+            downloads/no-internship-resume.zip
+            downloads/experienced-resume.zip
